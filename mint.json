@@ -37,6 +37,10 @@
       "name": "Data Management API",
       "url": "api-reference-1",
       "openapi": "/datamanagement.yaml"
+    },
+    {
+      "name": "Vault Data API",
+      "openapi": "/api-reference/api-1/openapi.json"
     }
   ],
   "anchors": [
