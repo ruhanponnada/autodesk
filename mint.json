@@ -42,6 +42,11 @@
       "name": "Vault Data API",
       "url": "api-reference/api-1/",
       "openapi": "/api-reference/api-1/openapi.json"
+    },
+    {
+      "name": "Alias API",
+      "url": "api-reference/api-2/",
+      "openapi": "/api-reference/api-2/openapi.json"
     }
   ],
   "anchors": [
@@ -70,6 +75,10 @@
     "style": "gradient"
   },
   "navigation": [
+    {
+      "group": "",
+      "pages": ["api-reference/api-2/alias"]
+    }
     {
       "group": "Quickstart",
       "pages": ["quickstart/home", "quickstart/getting-started"]
