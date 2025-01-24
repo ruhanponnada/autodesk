@@ -1,0 +1,127 @@
+---
+title: Getting Started
+icon: 'bolt'
+description: Here's a couple of things you want to do before building your first [Autodesk Platform Services](https://aps.autodesk.com/) application.
+---
+
+## Create an account
+If you don't have an APS account yet, sign up for one on https://aps.autodesk.com.
+<Tip>
+You can take advantage of a trial subscription that is valid for 3 months
+</Tip>
+
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/developer-portal-logged-out.375a198.1500.png" />
+</Frame>
+
+
+## Create app credentials
+In order to authenticate ourselves to the APS platform, we will need to generate app credentials (specifically, a client ID and client secret) for our application. After logging into the developer portal, go to your profile menu in the top-right corner, and click on `Applications`:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/developer-portal-logged-in.e10933a.1500.png" />
+</Frame>
+
+Next, click on the `Create` application button:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/my-apps.48c3f69.1500.png" />
+</Frame>
+
+Enter the name of your application. Select the type of application that applies to you, and click the `Create` button:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/create-app.7d4d7b9.1500.png" />
+</Frame>
+
+And your application is now ready. Let's store your `Client ID` and `Client Secret` credentials as we will need these soon!
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/app-overview.8bd8d4b.1500.png" />
+</Frame>
+
+Finally, set the `Callback URL` under General Settings to `http://localhost:8080/api/auth/callback`, and enable the APIs you want your application to have access to. Unless you have any specific reason for limiting your application's access to the different services, enable everything.
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/apis.be168a5.1500.png" />
+</Frame>
+
+<Warning>
+Pay close attention to the `Callback URL`. This is the address your application's users will be redirected to after logging in with their Autodesk credentials. It can be any arbitrary URL but it has to match exactly the URL your server application expects. In our tutorials we will always use the same address: `http://localhost:8080/api/auth/callback`.
+</Warning>
+
+
+Finally, update the application by clicking on the `Save changes` button, and you're all set!
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/save-changes.cd86275.1500.png" />
+</Frame>
+
+## Provision access in other products
+In certain cases it is possible for your application to integrate with other APS-based products such as [Autodesk Construction Cloud](https://construction.autodesk.com/), or [Autodesk BIM 360](https://www.autodesk.com/bim-360/). We leverage this capability in the Hubs Browser and ACC Administrator tutorials where you can learn about accessing designs from [Autodesk Docs](https://www.autodesk.com/products/autodesk-docs/overview?term=1-YEAR&tab=subscription), [BIM 360 Docs](https://www.autodesk.com/bim-360/), or [Fusion Teams](https://www.autodesk.com/products/fusion-360/overview?term=1-YEAR&tab=subscription).
+
+However, some of these products must provision access for a specific APS application based on its client ID. Follow the steps below for any specific product you would like to integrate your application with.
+
+<Info>
+If you are _not_ planning to integrate your application with other products for now, you can skip the rest of this page and come back to it later when needed.
+</Info>
+
+<Tabs>
+  <Tab title="AutoDesk Construction Cloud">
+  <Warning>
+  Make sure you have **admin access** to an Autodesk Construction Cloud (ACC for short) account
+  </Warning>
+
+  1. Log into your ACC account, and navigate to `Account Administration`
+  - From the overview of projects
+  <Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/project-list.93bb4c7.1500.jpeg" />
+</Frame>
+
+  - From the user interface of a specific project
+  <Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/project-detail.a7d60c9.300.jpeg" />
+</Frame>
+
+2. On the `Account Admin page`, go to `Custom Integrations`, use the `Add Custom Integration` button on the top to add a custom integration.
+ <Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/account-admin.1a5b401.1500.jpeg" />
+</Frame>
+
+3. On the Add `custom integration` dialog page, fill out the `Client ID`, `Custom integration name` and `Description fields`.
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/custom-integration.173e3e2.1500.jpeg" />
+</Frame>
+
+4. When ready, hit the `Add` button
+After completing the process, your application will be able to use different APS services such as [Data Management API](https://aps.autodesk.com/en/docs/data/v2/developers_guide/overview/) or ACC API to access information from all projects under this ACC account.
+</Tab>
+<Tab title="Autodesk BIM 360">
+<Warning>
+Make sure you have **admin access** to a BIM 360 account.
+</Warning>
+1. Log into your `BIM 360 account`, and navigate to `Account Admin`
+2. On the `Account Admin` page, go to `Settings`, and navigate to the `Custom Integrations` tab
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/custom-integrations.43bb525.500.jpeg" />
+</Frame>
+3. Use the `Add Custom Integration` button on the left side to start a simple wizard that will guide you through the process
+4. On the `Select Access` page, keep both the `BIM 360 Account Administration` and the `Document Management` options checked, and hit the `Next` button
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/select-access.5bdd5fa.500.jpeg" />
+</Frame>
+5. On the next page of the wizard, choose the `I'm the developer option`, and hit the `Next` button.
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/i-am-developer.e74ec05.500.jpeg" />
+</Frame>
+<Info>
+Here we assume that the account admin is also the owner of the APS application. If that is not the case, the account administrator can use the Invite a developer option instead, and the invited developer will input the APS application details later.
+</Info>
+6. On the next and final page, make note of the `BIM 360 Account ID`, check the checkbox next to it, and fill out the `Client ID` and the `App Name` fields exactly as they appear in your application's page on https://aps.autodesk.com/myapps
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/ideal-img/bim360-info.19fbb58.500.jpeg" />
+</Frame>
+<Tip>
+Consider storing your client ID somewhere in App Description. The client ID will not appear in the custom integration after it has been created, and if the number of integrations in your account starts to grow, this will help you quickly identify the APS application each custom integration is associated with.
+</Tip>
+7. When ready, scroll down and hit the Save button
+And that's it. Now your application can use different APS services such as Data Management API or BIM 360 API to access information from all projects under this BIM 360 account.
+</Tab>
+<Tab title="Autodesk Fusion Team">
+No provisioning steps are needed. Your APS application can automatically access the data of your authenticated users in this product.
+</Tab>
+</Tabs>

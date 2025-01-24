@@ -1,0 +1,329 @@
+---
+title: Application Setup
+icon: 'wrench'
+description: Let's start by creating a new project, installing required dependencies, and setting up a basic server application.
+---
+
+<Tabs>
+<Tab title="Node.js & VSCode">
+Create a new folder for your project, navigate to it in the command line, and initialize a new Node.js project:
+```
+npm init -y
+```
+Next, install all the Node.js dependencies we're going to use. In this case it will be [dotenv](https://www.npmjs.com/package/dotenv) (utility for initializing environment variables from a file), Express.js (web framework), an [Express.js](https://expressjs.com/) [middleware](https://expressjs.com/en/guide/using-middleware.html) for handling `multipart/form-data` requests, and finally the various packages of the official APS SDK:
+
+<Warning>
+As of April 2024 the APS SDK for Node.js is in beta, which means that the public interfaces can still change. To avoid any potential issues, we recommend installing the specific versions of these packages as shown below.
+</Warning>
+
+```
+npm install --save dotenv express express-formidable
+npm install --save @aps_sdk/autodesk-sdkmanager@0.0.7-beta.1
+npm install --save @aps_sdk/authentication@0.1.0-beta.1
+npm install --save @aps_sdk/oss@0.1.0-beta.1
+npm install --save @aps_sdk/model-derivative@0.1.0-beta.1
+```
+
+The `"dependencies"` in your `package.json` file should now look something like this (potentially with slightly different version numbers):
+```
+// ...
+  "dependencies": {
+    "@aps_sdk/authentication": "0.1.0-beta.1",
+    "@aps_sdk/autodesk-sdkmanager": "0.0.7-beta.1",
+    "@aps_sdk/model-derivative": "0.1.0-beta.1",
+    "@aps_sdk/oss": "0.1.0-beta.1",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-formidable": "^1.2.0"
+  },
+// ...
+```
+
+Finally, let's create a couple more subfolders in the project folder that we're going to need later:
+
+- `wwwroot` - this is where we're going to put all the client side assets (HTML, CSS, JavaScript, images, etc.)
+- `routes` - this is where we're going to implement all the server endpoints
+- `services` - here we're going to keep all the server-side logic that can be shared by different endpoints
+
+Now, when you open your project folder in Visual Studio Code for the first time, the folder structure should look similar to this:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/folder-structure-a4dba25c9b5d32146116d7ee2b008be0.webp" />
+</Frame>
+</Tab>
+<Tab title=".NET 6 & VSCode">
+Create a new folder for your project, navigate to it in the command line, and initialize a new ASP.NET Core project:
+```
+dotnet new web
+```
+Next we will need to install the dependencies. In this case it will just be a couple of packages from the official APS SDK:
+
+```
+dotnet add package Autodesk.SdkManager --version 1.0.0
+dotnet add package Autodesk.Authentication --version 1.0.0
+dotnet add package Autodesk.OSS --version 1.0.0
+dotnet add package Autodesk.ModelDerivative --version 1.0.0
+```
+The `*.csproj` file in your project should now look similar to this (possibly with slightly different version numbers, and additional .NET settings):
+```
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Autodesk.Authentication" Version="1.0.0" />
+    <PackageReference Include="Autodesk.ModelDerivative" Version="1.0.0" />
+    <PackageReference Include="Autodesk.OSS" Version="1.0.0" />
+    <PackageReference Include="Autodesk.SdkManager" Version="1.0.0" />
+  </ItemGroup>
+</Project>
+```
+Finally, let's create a couple more subfolders in the project folder that we're going to need later:
+- `Controllers` - this is where we're going to implement all the server endpoints
+- `Models` - here we're going to keep all the server-side logic that can be shared by different endpoints
+- `wwwroot` - this is where we're going to put all the client side assets (HTML, CSS, JavaScript, images, etc.)
+
+Now, when you open your project folder in Visual Studio Code for the first time, you will be prompted to setup your project for .NET development. Accept the prompt, and the editor will automatically create a `.vscode` subfolder with additional .NET specific settings such as the default [launch configuration](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations). The folder structure in the editor should look similar to this:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/folder-structure-efad3630ee426d892e0fffd1608569da.webp" />
+</Frame>
+
+<Note>
+If the `.vscode` folder is not created automatically, you can create it via the Run & Debug sidepanel
+</Note>
+
+To create the `.vscode folder` click on the Run and Debug tool on the left sidepanel > create a launch.json file > Select .NET5+ & .NET Core.
+</Tab>
+<Tab title=".NET 6 & VS2022">
+Create a new project in Visual Studio:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/create-project-3eac278d9a7b3b12327e8ef2caf2136e.webp" />
+</Frame>
+Choose the _ASP.NET Core Empty_ template:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/choose-template-0eaf8f177132a1714c44dc3d5409762a.webp" />
+</Frame>
+Name the project any way you want:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/configure-project-b48d3053b5ea342d552d7694d51e47ca.webp" />
+</Frame>
+Choose the `.NET 6.0` (Long-term support) framework, and disable HTTPS as we don't need it for now:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/additional-info-6e29504487f7fb2a46fbd5641cdc4691.webp" />
+</Frame>
+Once the project is ready, create the following subfolders in your project folder:
+- `Controllers` - this is where we're going to implement all the server endpoints
+- `Models` - here we're going to keep all the server-side logic that can be shared by different endpoints
+- `wwwroot` - this is where we're going to put all the client side assets (HTML, CSS, JavaScript, images, etc.)
+
+Next we will need to install the dependencies. In this case it will be a couple of modules of the official APS SDK. In the Solution Explorer, right-click on Dependencies, and then click on Manage NuGet Packages...:
+<Frame>
+  <img src="https://tutorials.autodesk.io/assets/images/manage-nugets-1eab7cd026f7d73439c9063264b9b7e4.webp" />
+</Frame>
+
+In the NuGet Package Manager, switch to the Browse tab, and search for and install the following packages:
+- [Autodesk.SdkManager](https://www.nuget.org/packages/Autodesk.SdkManager) (version 1.0.0)
+- [Autodesk.Authentication](https://www.nuget.org/packages/Autodesk.SdkManager) (version 1.0.0)
+- [Autodesk.OSS](https://www.nuget.org/packages/Autodesk.SdkManager) (version 1.0.0)
+- [Autodesk.DataManagement](https://www.nuget.org/packages/Autodesk.SdkManager) (version 1.0.0)
+- [Autodesk.ModelDerivative](https://www.nuget.org/packages/Autodesk.SdkManager) (version 1.0.0)
+</Tab>
+</Tabs>
+
+## Application config
+Our application will need a couple of configuration inputs to run properly, for example, the credentials of our APS app (client ID and secret) for communicating with Autodesk Platform Services. We will pass these parameters to our app using environment variables.
+
+<Tabs>
+<Tab title="Node.js & VSCode">
+Create a `config.js` file in the root of your project folder, and add the following code:
+```config.js config.js
+require('dotenv').config();
+
+let { APS_CLIENT_ID, APS_CLIENT_SECRET, APS_BUCKET, PORT } = process.env;
+if (!APS_CLIENT_ID || !APS_CLIENT_SECRET) {
+    console.warn('Missing some of the environment variables.');
+    process.exit(1);
+}
+APS_BUCKET = APS_BUCKET || `${APS_CLIENT_ID.toLowerCase()}-basic-app`;
+PORT = PORT || 8080;
+
+module.exports = {
+    APS_CLIENT_ID,
+    APS_CLIENT_SECRET,
+    APS_BUCKET,
+    PORT
+};
+```
+The `dotenv` library initializes environment variables from a local `.env` file (if there's one). We then simply read the environment variables from `process.env`, and exit the application immediately if any of the required properties are missing. And if no bucket name is provided for where our designs should be stored, we generate one by appending the -basic-app suffix to our application Client ID.
+
+<Warning>
+Note that the Data Management service requires bucket names to be **globally unique**, and attempts to create a bucket with an already used name will fail with `409 Conflict`. See the documentation for more details.
+</Warning>
+
+Next, let's create the .env file in the project folder, and populate it with the required environment variables (replacing `<client-id>` and `<client-secret>` with your APS Client ID and Client Secret):
+```
+APS_CLIENT_ID="<client-id>"
+APS_CLIENT_SECRET="<client-secret>"
+```
+<Warning>
+Since the .env file contains sensitive information, make sure that it is **not** included in git! This can be ensured by adding the .env line to the [].gitignore](https://git-scm.com/docs/gitignore) file.
+</Warning>
+
+Now, in order to be able to run and debug our application from Visual Studio Code, we need to create a launch configuration. Use Run > Add Configuration in the menu to create a new configuration, and when prompted for the specific environment, choose Node.js. This will create a new `.vscode` subfolder in your project with a `launch.json` file where you can define different launch configurations. Replace the content of the file with the following:
+```json launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Server",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "start"
+            ],
+            "skipFiles": [
+                "<node_internals>/**/*.js"
+            ]
+        }
+    ]
+}
+```
+We are defining a single launch configuration called Launch Server that will simply start our application using the `npm start` command.`
+</Tab>
+<Tab title=".NET 6 & VSCode">
+Create a `Startup.cs` file in the root folder of your project with the following content:
+```csharp Startup.cs
+using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        var clientID = Configuration["APS_CLIENT_ID"];
+        var clientSecret = Configuration["APS_CLIENT_SECRET"];
+        var bucket = Configuration["APS_BUCKET"]; // Optional
+        if (string.IsNullOrEmpty(clientID) || string.IsNullOrEmpty(clientSecret))
+        {
+            throw new ApplicationException("Missing required environment variables APS_CLIENT_ID or APS_CLIENT_SECRET.");
+        }
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+    }
+}
+```
+The `Startup` class is responsible for configuring our server and its "middleware", for example, serving of static files. We also try and retrieve the APS application client ID and secret from environment variables (or from other configuration providers) for later use.
+
+Now, to pass actual configuration values to our application for debugging purposes, we will modify (or create) the appsettings.Development.json file in our project folder with the following content (replacing `<client-id>` and`<client-secret>` with your APS Client ID and Client Secret):
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "APS_CLIENT_ID": "<client-id>",
+  "APS_CLIENT_SECRET": "<client-secret>"
+}
+```
+<warning>
+Since the `appsettings.Development.json` file contains sensitive information, make sure that it is not included in git! This can be ensured by adding the `appsettings.Development.json` line to the .gitignore file.
+</warning>
+</Tab>
+<Tab title=".NET 6 & VS2022">
+Create a `Startup.cs` file in the root folder of your project with the following content:
+```csharp Startup.cs
+using System;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        var clientID = Configuration["APS_CLIENT_ID"];
+        var clientSecret = Configuration["APS_CLIENT_SECRET"];
+        var bucket = Configuration["APS_BUCKET"]; // Optional
+        if (string.IsNullOrEmpty(clientID) || string.IsNullOrEmpty(clientSecret))
+        {
+            throw new ApplicationException("Missing required environment variables APS_CLIENT_ID or APS_CLIENT_SECRET.");
+        }
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+    }
+}
+```
+The `Startup` class is responsible for configuring our server and its "middleware", for example, serving of static files. We also try and retrieve the APS application client ID and secret from environment variables (or from other configuration providers) for later use.
+
+Now, to pass actual configuration values to our application for debugging purposes, we will modify (or create) the appsettings.Development.json file in our project folder with the following content (replacing `<client-id>` and`<client-secret>` with your APS Client ID and Client Secret):
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "APS_CLIENT_ID": "<client-id>",
+  "APS_CLIENT_SECRET": "<client-secret>"
+}
+```
+<warning>
+Since the `appsettings.Development.json` file contains sensitive information, make sure that it is not included in git! This can be ensured by adding the `appsettings.Development.json` line to the .gitignore file.
+</warning>
+</Tab>
+</Tabs>

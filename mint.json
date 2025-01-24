@@ -1,0 +1,90 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Autodesk",
+  "logo": {
+    "dark": "/logo/dark1.png",
+    "light": "/logo/light.png"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#0E0E0E",
+    "light": "#5c62fa",
+    "dark": "#0E0E0E",
+    "anchors": {
+      "from": "#000000",
+      "to": "#000000"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Contact Support",
+      "url": "https://aps.autodesk.com/contact-support"
+    }
+  ],
+  "topbarCtaButton": {
+    "arrow": false,
+    "style": "roundedRectangle",
+    "name": "Sign in",
+    "url": "https://accounts.autodesk.com/logon?resume=%2Fas%2FkI36Lj1gJd%2Fresume%2Fas%2Fauthorization.ping&spentity=null#username"
+  },
+  "tabs": [
+    {
+      "name": "Authorization API",
+      "url": "api-reference",
+      "openapi": "/authentication.yaml"
+    },
+    {
+      "name": "Data Management API",
+      "url": "api-reference-1",
+      "openapi": "/datamanagement.yaml"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "API Status",
+      "icon": "wave-pulse",
+      "url": "https://health.autodesk.com/"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/autodesk-platform-services"
+    },
+    {
+      "name": "FAQ",
+      "icon": "question",
+      "url": "https://aps.autodesk.com/frequently-asked-questions"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://aps.autodesk.com/blog"
+    }
+  ],
+  "topbar": {
+    "style": "gradient"
+  },
+  "navigation": [
+    {
+      "group": "Quickstart",
+      "pages": ["quickstart/home", "quickstart/getting-started"]
+    },
+    {
+      "group": "Tutorials",
+      "pages": [
+        {
+          "group": "Simple Viewer",
+          "pages": ["tutorials/simple-viewer", "tutorials/application-setup"]
+        }
+      ]
+    },
+    {
+      "group": "Learn More",
+      "pages": ["learn-more"]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/AutodeskAPS",
+    "facebook": "https://www.facebook.com/AutodeskPlatformServices"
+  }
+}
