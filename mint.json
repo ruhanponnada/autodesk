@@ -78,7 +78,7 @@
     {
       "group": "",
       "pages": ["api-reference/api-2/alias"]
-    }
+    },
     {
       "group": "Quickstart",
       "pages": ["quickstart/home", "quickstart/getting-started"]
