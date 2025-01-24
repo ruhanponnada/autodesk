@@ -40,6 +40,7 @@
     },
     {
       "name": "Vault Data API",
+      "url": "api-reference/api-1/",
       "openapi": "/api-reference/api-1/openapi.json"
     }
   ],
